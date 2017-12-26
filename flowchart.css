@@ -1,0 +1,100 @@
+@font-face {
+    font-family: Rounded;
+    src: url('CandelaBook.otf');
+}
+
+.box {
+    text-align: center;
+    text-decoration: none;
+    font-family: Rounded;
+    margin-bottom: 3.1vh;
+    display: block;
+    width: 9vw;
+    height: 9.2vh;
+    /* Rollover effect: */
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+/* Removes blue outline when clicked: */
+.box:focus {
+    outline: none;
+}
+
+
+.course-box {
+
+}
+
+#panel {
+    margin-top: 2vh;
+}
+
+.column {
+    display: inline-block;
+    margin-left: 0.8vw;
+    margin-right: 0.8vw;
+    float: left;
+}
+
+.incomplete-course {
+    background-color: white;
+    color: black;
+    /* Border of rectangle: */
+    border: 0.09vw solid black;
+}
+
+.complete-course {
+    background-color: #b1fca4; /* light green */
+    color: black;
+    /* Border of rectangle: */
+    border: 0.09vw solid black;
+}
+
+
+/* This media block disables hover in touch devices: */
+@media (hover: hover) {
+    .incomplete-course:hover {
+        color: #870404; /* dark red */
+        background-color: #ffcccc; /* light red */
+        border-color: #870404; /* dark red */
+    }
+
+    .complete-course:hover {
+        color: #003305; /* dark green */
+        background-color: #6ae879; /* green */
+        border-color: #003305; /* dark green */
+    }
+}
+
+
+.course-name {
+    display: block;
+    font-size: calc(0.7vw + 0.6vh);
+    line-height: 120%;
+}
+
+.course-credits {
+    margin-top: 0.2vw;
+    display: block;
+    font-size: calc(0.5vw + 0.9vh);
+}
+
+.semester-box {
+    color: black;
+    /* Border of rectangle: */
+    border: 0.09vw solid black;
+}
+
+.incomplete-semester {
+    background-color: #e7ede6; /* light gray */
+}
+
+.complete-semester {
+    background-color: #fcfab0; /* light yellow */
+}
+
+.semester-name {
+    display: block;
+    font-size: calc(0.7vw + 1vh);
+}
