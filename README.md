@@ -14,4 +14,4 @@ Access the downloaded branch and run a HTTP server. One example using Python wou
 
 Now simply access the flowchart.html file through localhost:8000/flowchart.html
 
-The project is very compatible with mobile devices, just go to 192.168.0.X:8000 (where X is your server's location) to try it out.
+The project is very compatible with mobile devices, just go to X.X.X.X:8000 (address of your server) to try it out.
