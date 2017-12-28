@@ -75,7 +75,7 @@ var courses = [
         // Creates a button representing a semester:
         var rectangle = $("<button/>",
             {
-                "class": "box semester-box incomplete-semester",
+                "class": "box semester-box incomplete-semester unselectable",
                 "id": "semester"+i
             });
 
@@ -101,7 +101,7 @@ var courses = [
         // Creates a button representing a course:
         var rectangle = $("<button/>",
             {
-                "class": "box course-box",
+                "class": "box course-box unselectable",
                 "id": "course"+i,
             });
 
