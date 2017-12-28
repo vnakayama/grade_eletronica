@@ -8,7 +8,7 @@ The courses.js file contains a list of courses you need to take to graduate. Sim
 
 ## Usage
 
-Access the downloaded branch and run a HTTP server. One example using Python would be:
+Access the downloaded branch and run an HTTP server. One example using Python would be:
 
 ```python -m SimpleHTTPServer 8000```
 
