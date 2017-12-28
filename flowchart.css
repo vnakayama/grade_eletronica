@@ -56,13 +56,13 @@
 @media (hover: hover) {
     .incomplete-course:hover {
         color: #870404; /* dark red */
-        background-color: #ffcccc; /* light red */
+        background-color: #ffeded; /* light red */
         border-color: #870404; /* dark red */
     }
 
     .complete-course:hover {
         color: #003305; /* dark green */
-        background-color: #6ae879; /* green */
+        background-color: #77ef85; /* green */
         border-color: #003305; /* dark green */
     }
 }
