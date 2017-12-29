@@ -52,7 +52,7 @@
         (function(i) {
             rectangle.click( function(e){
                 // Decides to assign a tooltip or a toggle event:
-                if (courses[i].tooltip == "true"){
+                if (courses[i].step != undefined){
                     courseTooltip(i);
                 } else {
                     courseToggle(i);
@@ -102,7 +102,7 @@
         parent.append(rectangle);
 
         // Checks if background should be partially colored:
-        if (courses[i].tooltip == "true") {
+        if (courses[i].step != undefined) {
             scaleBackground(i);
         }
 
@@ -185,7 +185,7 @@ function courseTooltip(index){
                     }
                 },
             // Slider step:
-            step: 2,
+            step: parseInt(courses[index].step),
             // Min and max values:
     		range: {
     			'min': 0,
@@ -294,14 +294,15 @@ function verifySemester(index){
 
 // Checks if cookies already exist:
 function checkCookies() {
-    var check = getCookie("newcomer6");
+    var check = getCookie("newcomer8");
     // If cookie doesn't exist:
     if (check == "") {
         // Sets the first visit as false:
-        setCookie("newcomer6", "false");
+        setCookie("newcomer8", "false");
         // Creates a cookie for each course:
         for (var i in courses){
             setCookie(i, "0");
+            courses[i].status = "0";
         }
     } else {
         // Retrieves each cookie:
