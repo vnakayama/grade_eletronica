@@ -68,6 +68,7 @@
             rectangle.addClass("complete-course");
         } else {
             rectangle.addClass("incomplete-course");
+            // Checks if background should be colored partially:
         }
 
         // Creates a span element to hold the name of the course:
@@ -99,6 +100,11 @@
         rectangle.append(name);
         rectangle.append(credits);
         parent.append(rectangle);
+
+        // Checks if background should be partially colored:
+        if (courses[i].tooltip == "true") {
+            scaleBackground(i);
+        }
 
     }
 
@@ -193,17 +199,20 @@ function courseTooltip(index){
             // Reads the changed value:
             var status = slider[0].noUiSlider.get().toString();
             // Prevents initialization issues:
-            if (status == "NaN") status = 0;
+            if (status == "NaN") status = "0";
             // Saves the cookie:
             setCookie(index, status);
             courses[index].status = status;
 
             // Adds completion color to course element:
-            var scale = parseInt(courses[index].status) / courses[index].credits;
-            $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
+            var scale = scaleBackground(index);
 
-            // Checks if semester status was changed:
-            verifySemester(courses[index].semester);
+            // Checks if course status was changed:
+            if (scale == 1) {
+                courseToggle(index);
+            } else if (course.hasClass("complete-course")){
+                courseToggle(index);
+            }
 
         });
 
@@ -232,6 +241,17 @@ function courseTooltip(index){
 }
 
 
+// Adds a fraction of a completed background to a course:
+function scaleBackground(index){
+    // Adds completion color to course element:
+    var scale = parseInt(courses[index].status) / courses[index].credits;
+    $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
+
+    // Returns the calculated value:
+    return scale;
+}
+
+
 function verifySemester(index){
 
     // Variable to hold ALL courses belonging to semester "index":
@@ -256,18 +276,17 @@ function verifySemester(index){
     if (belonging == completed){
         // Marks semester as complete:
         if (semester.hasClass("incomplete-semester")){
-            console.log("made complete");
             semester.removeClass("incomplete-semester").addClass("complete-semester");
         }
     } else {
         // Marks semester as incomplete:
         if (semester.hasClass("complete-semester")){
-            console.log("made incomplete");
             semester.removeClass("complete-semester").addClass("incomplete-semester");
         }
     }
 
 }
+
 
 
 /* COOKIE FUNCTIONS */
