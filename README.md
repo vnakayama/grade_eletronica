@@ -21,6 +21,6 @@ The js/database.js file contains a list of courses you need to take to graduate.
 | name | Course name |
 | credits | How many credits a course yields |
 | semester | The semester to which the course belongs |
-| step* | If set, a tooltip will show up with a slider with this step value |
+| step* | If set, a tooltip and a slider will show up with this step value |
 
 *optional
