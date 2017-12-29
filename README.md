@@ -23,3 +23,4 @@ The js/database.js file contains a list of courses you need to take to graduate.
 | semester   | The semester to which the course belongs          |
 | step*      | Number of steps for partial completion of course  |
 
+*optional
