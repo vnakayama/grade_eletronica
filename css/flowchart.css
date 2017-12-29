@@ -1,9 +1,10 @@
 @font-face {
     font-family: Rounded;
-    src: url('CandelaBook.otf');
+    src: url('fonts/CandelaBook.otf');
 }
 
 .box {
+    position: relative;
     text-align: center;
     text-decoration: none;
     font-family: Rounded;

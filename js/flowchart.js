@@ -50,13 +50,21 @@
 
         // Assigns the click event handler for courses:
         (function(i) {
-            rectangle.click( function(){
-                courseClick(i);
+            rectangle.click( function(e){
+                // Decides to assign a tooltip or a toggle event:
+                if (courses[i].tooltip == "true"){
+                    courseTooltip(i);
+                } else {
+                    courseToggle(i);
+                }
+            // Impedes click event from being triggered by descendants:
+            }).on('click', 'div', function(e) {
+                e.stopPropagation();
             });
         }(i));
 
         // Updates button according to course completion:
-        if (courses[i].status == "complete") {
+        if (parseInt(courses[i].status) == courses[i].credits) {
             rectangle.addClass("complete-course");
         } else {
             rectangle.addClass("incomplete-course");
@@ -101,7 +109,8 @@
 
 });
 
-function courseClick(index){
+// Function to toggle complete/incomplete when clicking on a course:
+function courseToggle(index){
 
     // Finds the corresponding course button:
     var course = $("#course"+index);
@@ -110,10 +119,10 @@ function courseClick(index){
     // Toggles the button completion:
     if (course.hasClass("incomplete-course")){
         course.removeClass("incomplete-course").addClass("complete-course");
-        status = "complete";
+        status = courses[index].credits.toString();
     } else {
         course.removeClass("complete-course").addClass("incomplete-course");
-        status = "incomplete"
+        status = "0";
     }
 
     // Saves the cookie:
@@ -122,6 +131,99 @@ function courseClick(index){
 
     // Checks if semester status was changed:
     verifySemester(courses[index].semester);
+
+}
+
+// Function to display a tooltip with a slider when clicking on a course:
+function courseTooltip(index){
+
+    // Finds the corresponding course button:
+    var course = $("#course"+index);
+
+    // Case where tooltip isn't open yet:
+    if (course.attr("tooltipOpen") != "true"){
+
+        // Saves the state of the tooltip:
+        course.attr("tooltipOpen", "true");
+
+        // Creates a tooltip:
+        var tooltip = $("<div/>",
+            {
+                "class": "tt" + index + " tt-text"
+            });
+
+        // Creates the slider div:
+        var slider = $("<div/>",
+            {
+                "class": "slider"
+            });
+        tooltip.append(slider);
+
+        // Initializes the slider (slider[0] is just jquery obj to vanilla JS obj):
+        noUiSlider.create(slider[0], {
+            // Initital value:
+    		start: parseInt(courses[index].status),
+            // Background:
+    		connect: [true, false],
+            // Allows for immediate movement of slide:
+            behaviour: 'snap',
+            // Display current value as tooltip:
+            tooltips: true,
+            // Parse displayed value as an integer:
+            format: {
+                to: function ( value ) {
+                    return parseInt(value);
+                },
+                from: function ( value ) {
+                    return parseInt(value);
+                    }
+                },
+            // Slider step:
+            step: 2,
+            // Min and max values:
+    		range: {
+    			'min': 0,
+    			'max': courses[index].credits
+    		}
+    	});
+
+        // Listens for a change of value on the slider:
+        slider[0].noUiSlider.on("update", function(){
+
+            // Reads the changed value:
+            var status = slider[0].noUiSlider.get().toString();
+            // Prevents initialization issues:
+            if (status == "NaN") status = 0;
+            // Saves the cookie:
+            setCookie(index, status);
+            courses[index].status = status;
+
+            // Checks if semester status was changed:
+            verifySemester(courses[index].semester);
+
+        });
+
+        // Appends tooltip to DOM:
+        course.append(tooltip);
+
+        // Triggers tooltip fade in:
+        tooltip.fadeTo(500, 0.7);
+
+    // Case where tooltip is already open:
+    } else {
+
+        // Saves the state of the tooltip:
+        course.attr("tooltipOpen", "false");
+
+        // Finds the open tooltip (and possible copies of it):
+        var tooltip = $(".tt"+index);
+
+        // Triggers tooltip fade out and removes it from DOM:
+        tooltip.fadeOut(500, function(){
+            this.remove();
+        });
+
+    }
 
 }
 
@@ -138,7 +240,7 @@ function verifySemester(index){
         if (courses[i].semester == index){
             belonging += 1;
             // Checks if course is completed:
-            if (courses[i].status == "complete"){
+            if (parseInt(courses[i].status) == courses[i].credits){
                 completed += 1;
             }
         }
@@ -169,14 +271,14 @@ function verifySemester(index){
 
 // Checks if cookies already exist:
 function checkCookies() {
-    var check = getCookie("newcomer3");
+    var check = getCookie("newcomer6");
     // If cookie doesn't exist:
     if (check == "") {
         // Sets the first visit as false:
-        setCookie("newcomer3", "false");
+        setCookie("newcomer6", "false");
         // Creates a cookie for each course:
         for (var i in courses){
-            setCookie(i, "incomplete");
+            setCookie(i, "0");
         }
     } else {
         // Retrieves each cookie:

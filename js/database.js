@@ -45,14 +45,14 @@ window.courses = [
     { name: "Computação de Alto Desempenho", credits: 3, semester: 7},
     { name: "Sistemas Distribuídos", credits: 4, semester: 7},
     { name: "Gestão do Conhecimento", credits: 4, semester: 7},
-    { name: "Atividades Acad. Optativas", credits: 8, semester: 7},
+    { name: "Atividades Acad. Optativas", credits: 8, semester: 7, tooltip: "true"},
     { name: "Construção de Banco de Dados", credits: 4, semester: 8},
     { name: "Empreend. I", credits: 4, semester: 8},
     { name: "Qualidade de Software", credits: 4, semester: 8},
     { name: "Projeto de Graduação", credits: 4, semester: 8},
-    { name: "Atividades Acad. Optativas", credits: 8, semester: 8},
+    { name: "Atividades Acad. Optativas", credits: 8, semester: 8, tooltip: "true"},
     { name: "Estágio Obrigatório", credits: 160, semester: 9},
-    { name: "Atividades Acad. Optativas", credits: 16, semester: 9},
-    { name: "Atividades Acad. Optativas", credits: 8, semester: 10},
-    { name: "Atividades Acad. Livre Escolha", credits: 8, semester: 10}
+    { name: "Atividades Acad. Optativas", credits: 16, semester: 9, tooltip: "true"},
+    { name: "Atividades Acad. Optativas", credits: 8, semester: 10, tooltip: "true"},
+    { name: "Atividades Acad. Livre Escolha", credits: 8, semester: 10, tooltip: "true"}
 ]
