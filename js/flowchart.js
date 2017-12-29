@@ -198,6 +198,10 @@ function courseTooltip(index){
             setCookie(index, status);
             courses[index].status = status;
 
+            // Adds completion color to course element:
+            var scale = parseInt(courses[index].status) / courses[index].credits;
+            $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
+
             // Checks if semester status was changed:
             verifySemester(courses[index].semester);
 
