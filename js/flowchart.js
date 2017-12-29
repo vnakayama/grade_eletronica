@@ -208,9 +208,9 @@ function courseTooltip(index){
             var scale = scaleBackground(index);
 
             // Checks if course status was changed:
-            if (scale == 1) {
+            if ((scale == 1) && (course.hasClass("incomplete-course"))) {
                 courseToggle(index);
-            } else if (course.hasClass("complete-course")){
+            } else if ((scale != 1) && (course.hasClass("complete-course"))){
                 courseToggle(index);
             }
 
