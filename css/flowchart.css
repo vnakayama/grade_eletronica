@@ -63,7 +63,7 @@
 
     .complete-course:hover {
         color: #003305; /* dark green */
-        background-color: #77ef85; /* green */
+        background-color: #77ef85; !important /* green */
         border-color: #003305; /* dark green */
     }
 

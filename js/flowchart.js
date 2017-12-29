@@ -209,6 +209,7 @@ function courseTooltip(index){
 
             // Checks if course status was changed:
             if ((scale == 1) && (course.hasClass("incomplete-course"))) {
+                course.css("background-image", "");
                 courseToggle(index);
             } else if ((scale != 1) && (course.hasClass("complete-course"))){
                 courseToggle(index);
@@ -241,12 +242,13 @@ function courseTooltip(index){
 }
 
 
-// Adds a fraction of a completed background to a course:
+// Adds a fraction of a completed background to a course if it is not completed:
 function scaleBackground(index){
     // Adds completion color to course element:
     var scale = parseInt(courses[index].status) / courses[index].credits;
-    $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
-
+    if (scale != 1){
+        $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
+    }
     // Returns the calculated value:
     return scale;
 }
