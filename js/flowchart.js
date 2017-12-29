@@ -155,7 +155,7 @@ function courseTooltip(index){
         // Creates a tooltip:
         var tooltip = $("<div/>",
             {
-                "class": "tt" + index + " tt-text"
+                "class": "tt" + index + " tooltip top"
             });
 
         // Creates the slider div:
@@ -221,7 +221,7 @@ function courseTooltip(index){
         course.append(tooltip);
 
         // Triggers tooltip fade in:
-        tooltip.fadeTo(500, 0.7);
+        tooltip.fadeIn(300);
 
     // Case where tooltip is already open:
     } else {
@@ -233,7 +233,7 @@ function courseTooltip(index){
         var tooltip = $(".tt"+index);
 
         // Triggers tooltip fade out and removes it from DOM:
-        tooltip.fadeOut(500, function(){
+        tooltip.fadeOut(300, function(){
             this.remove();
         });
 
