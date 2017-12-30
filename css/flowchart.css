@@ -3,6 +3,11 @@
     src: url('fonts/CandelaBook.otf');
 }
 
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
 .box {
     position: relative;
     text-align: center;
@@ -29,6 +34,7 @@
 
 #panel {
     margin-top: 2vh;
+    margin-left: 0.7vw;
 }
 
 .column {

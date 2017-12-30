@@ -1,9 +1,27 @@
 
+var openTooltips = [];
+
 /* Initialization function: */
  $(document).ready(function(){
 
      // Loads data for course completion:
      checkCookies();
+
+     // Adds click event to close all tooltips:
+     $("body").click(function(e) {
+
+         // Variable to exclude from the close tooltip function:
+         var keepOpen = -1;
+
+         // If a course was clicked, retrieve its index:
+         if (e.target.id.indexOf("course") != -1){
+             // Retrieves the index of the clicked course:
+             keepOpen = e.target.id.match(/\d+/);
+         }
+
+         closeAllTooltips(keepOpen);
+
+     });
 
      // Creates semester columns:
      for (var i=1; i<=semesters; i++){
@@ -22,13 +40,11 @@
                 "id": "semester"+i
             });
 
-        // Disables clicking:
-        rectangle.prop("disabled", true);
-
         // Creates a span element to hold the name of the semester:
         var name = $("<span/>",
             {
                 "class": "semester-name",
+                "id": "semester-name"+i
             });
         name.html(i+"º PERÍODO");
 
@@ -75,6 +91,7 @@
         var name = $("<span/>",
             {
                 "class": "course-name",
+                "id": "course-name"+i
             });
         name.html(courses[i].name);
 
@@ -82,6 +99,7 @@
         var credits = $("<span/>",
             {
                 "class": "course-credits",
+                "id": "course-credits"+i
             });
 
         // Checks what kind of credits the metric means:
@@ -147,10 +165,10 @@ function courseTooltip(index){
     var course = $("#course"+index);
 
     // Case where tooltip isn't open yet:
-    if (course.attr("tooltipOpen") != "true"){
+    if (openTooltips.indexOf(index.toString()) == -1){
 
         // Saves the state of the tooltip:
-        course.attr("tooltipOpen", "true");
+        openTooltips.push(index);
 
         // Creates a tooltip:
         var tooltip = $("<div/>",
@@ -226,19 +244,32 @@ function courseTooltip(index){
     // Case where tooltip is already open:
     } else {
 
-        // Saves the state of the tooltip:
-        course.attr("tooltipOpen", "false");
-
-        // Finds the open tooltip (and possible copies of it):
-        var tooltip = $(".tt"+index);
-
-        // Triggers tooltip fade out and removes it from DOM:
-        tooltip.fadeOut(300, function(){
-            this.remove();
-        });
+        closeAllTooltips(-1);
 
     }
 
+}
+
+function closeAllTooltips(keepOpen){
+
+    // Runs through the list of open tooltips:
+    for (var i in openTooltips){
+
+        // Ignores the course of index "exclusion":
+        if (openTooltips[i] != keepOpen.toString()){
+
+            // Finds the open tooltip (and possible copies of it):
+            var tooltip = $(".tt"+openTooltips[i]);
+
+            // Triggers tooltip fade out and removes it from DOM:
+            tooltip.fadeOut(300, function(){
+                this.remove();
+            });
+
+            // Removes from open tooltips array:
+            openTooltips.splice(i, 1);
+        }
+    }
 }
 
 
