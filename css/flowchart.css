@@ -8,6 +8,8 @@ html, body {
     height: 100%;
 }
 
+/* General boxes/buttons CSS: */
+
 .box {
     position: relative;
     text-align: center;
@@ -30,6 +32,12 @@ html, body {
 
 .course-box {
 
+}
+
+.semester-box {
+    color: black;
+    /* Border of rectangle: */
+    border: 0.09vw solid black;
 }
 
 #panel {
@@ -75,6 +83,20 @@ html, body {
 
 }
 
+/* CSS animation for glowing course boxes: */
+
+@keyframes glowing {
+    0% { box-shadow: 0 0 -20px #ef1717; }
+    40% { box-shadow: 0 0 20px #ef1717; }
+    60% { box-shadow: 0 0 20px #ef1717; }
+    100% { box-shadow: 0 0 -20px #ef1717; }
+}
+
+.course-glow {
+    animation: glowing 800ms infinite;
+}
+
+/* Text CSS: */
 
 .course-name {
     display: block;
@@ -88,11 +110,6 @@ html, body {
     font-size: calc(0.5vw + 0.9vh);
 }
 
-.semester-box {
-    color: black;
-    /* Border of rectangle: */
-    border: 0.09vw solid black;
-}
 
 .incomplete-semester {
     background-color: #e7ede6; /* light gray */

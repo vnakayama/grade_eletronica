@@ -1,5 +1,6 @@
 
-var openTooltips = [];
+var openTooltips = [];      // Array of IDs of currently active tooltips
+var timer = null;           // Timer to keep track of "click and hold" or just "simple click"
 
 /* Initialization function: */
  $(document).ready(function(){
@@ -64,18 +65,46 @@ var openTooltips = [];
                 "id": "course"+i,
             });
 
-        // Assigns the click event handler for courses:
+        // Assigns the click event handlers for courses:
         (function(i) {
-            rectangle.click( function(e){
-                // Decides to assign a tooltip or a toggle event:
-                if (courses[i].step != undefined){
-                    courseTooltip(i);
-                } else {
-                    courseToggle(i);
+            // Checks if device has touch or mouse:
+            var mouseDown = "touchstart", mouseUp = "touchend";
+            if (document.ontouchstart !== null){
+                mouseDown = "mousedown", mouseUp = "mouseup";
+            }
+            // Event for when click is pressed:
+            rectangle.on(mouseDown, function(e){
+                // Starts the timer:
+                timer = setTimeout(function(){ onLongTouch(i) }, 500);
+            // Impedes click event from being triggered by descendants:
+            }).on('click', 'div', function(e) {
+                e.stopPropagation();
+            });
+            // Event for when click is released:
+            rectangle.on(mouseUp, function(e){
+                // If this passes, click wasn't a hold:
+                if (timer != null){
+                    // Prevents "click and hold" from happening:
+                    clearTimeout(timer);
+                    // Signals there was no "click and hold":
+                    timer = null;
+                    // Decides to assign a tooltip or a toggle event:
+                    if (courses[i].step != undefined){
+                        courseTooltip(i);
+                    } else {
+                        courseToggle(i);
+                    }
                 }
             // Impedes click event from being triggered by descendants:
             }).on('click', 'div', function(e) {
                 e.stopPropagation();
+            });
+            // For mouse environments, clears timer when dragging away from course box:
+            rectangle.mouseleave( function(e){
+                // Prevents "click and hold" from happening:
+                clearTimeout(timer);
+                // Signals there was no "click and hold":
+                timer = null;
             });
         }(i));
 
@@ -132,6 +161,25 @@ var openTooltips = [];
     }
 
 });
+
+
+// Function to display a course's requirements when holding its box:
+function onLongTouch(index) {
+    // Signals that the timer is no longer running:
+    timer = null;
+    // Retrieves requirements for course "index":
+    var requirements = courses[index].requirements;
+    // Light them up if requirements exist:
+    if (requirements != undefined){
+        for (var i in requirements){
+            $("#course"+requirements[i]).addClass("course-glow");
+            // Sets a timer for the glow to end after a few seconds:
+            (function(i) {
+                setTimeout(function(){ $("#course"+requirements[i]).removeClass("course-glow"); }, 4600);
+            }(i));
+        }
+    }
+}
 
 // Function to toggle complete/incomplete when clicking on a course:
 function courseToggle(index){
