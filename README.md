@@ -21,6 +21,7 @@ The js/database.js file contains a list of courses you need to take to graduate.
 | name | Course name |
 | credits | How many credits a course yields |
 | semester | The semester to which the course belongs |
+| requirements* | Array containing IDs of courses that lock a course's completion |
 | step* | If set, a tooltip and a slider will show up with this step value |
 
 *optional
