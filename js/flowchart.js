@@ -1,6 +1,7 @@
 
-var openTooltips = [];      // Array of IDs of currently active tooltips
-var timer = null;           // Timer to keep track of "click and hold" or just "simple click"
+var openTooltips = [];          // (internal) Array of IDs of currently active tooltips
+var timer = null;               // (internal) Timer to keep track of "click and hold" or just "simple click"
+var pressAndHoldTime = 500;     // Period of time for the program to consider a touch/click as a "click and hold"
 
 /* Initialization function: */
  $(document).ready(function(){
@@ -75,7 +76,7 @@ var timer = null;           // Timer to keep track of "click and hold" or just "
             // Event for when click is pressed:
             rectangle.on(mouseDown, function(e){
                 // Starts the timer:
-                timer = setTimeout(function(){ onLongTouch(i) }, 500);
+                timer = setTimeout(function(){ onLongTouch(i) }, pressAndHoldTime);
             // Impedes click event from being triggered by descendants:
             }).on('click', 'div', function(e) {
                 e.stopPropagation();

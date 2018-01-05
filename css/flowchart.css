@@ -83,6 +83,14 @@ html, body {
 
 }
 
+.incomplete-semester {
+    background-color: #e7ede6; /* light gray */
+}
+
+.complete-semester {
+    background-color: #fcfab0; /* light yellow */
+}
+
 /* CSS animation for glowing course boxes: */
 
 @keyframes glowing {
@@ -111,14 +119,6 @@ html, body {
 }
 
 
-.incomplete-semester {
-    background-color: #e7ede6; /* light gray */
-}
-
-.complete-semester {
-    background-color: #fcfab0; /* light yellow */
-}
-
 .semester-name {
     display: block;
     font-size: calc(0.7vw + 1vh);
@@ -132,4 +132,35 @@ html, body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+/* Circular question mark button: */
+
+.help-tip{
+	position: absolute;
+	top: 2.2vh;
+	right: 0.8vw;
+	text-align: center;
+	background-color: white;
+	border-radius: 50%;
+    border: 0.08vw solid black;
+	width: 1.7vw;
+	height: 1.7vw;
+	font-size: calc(0.8vw + 0.8vh);
+	line-height: 3.6vh;
+	cursor: default;
+    text-decoration: none;
+    /* Rollover effect: */
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.help-tip:before{
+	content:'?';
+	font-weight: bold;
+	color: #a7acb2;
+}
+
+.help-tip:hover{
+	background-color: #f2f2f2;
 }
