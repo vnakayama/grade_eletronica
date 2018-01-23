@@ -55,5 +55,6 @@ window.courses = [
     { name: "Atividades Acad. Optativas", credits: 16, semester: 9, step: 1},
     { name: "Atividades Acad. Optativas", credits: 8, semester: 10, step: 1},
     { name: "Atividades Acad. Livre Escolha", credits: 8, semester: 10, step: 1},
-    { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15}
+    { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15},
+	{ name: "Química EE", credits: 4, semester: 4}
 ]
