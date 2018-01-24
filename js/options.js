@@ -8,7 +8,7 @@ $(document).ready(function () {
 	// Help button:
 	addHover("#help", "#help-hover", "#help-wrapper");
 
-	// Help button:
+	// Lock button:
 	addHover("#lock", "#lock-hover", "#lock-wrapper");
 
 });
