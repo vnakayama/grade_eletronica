@@ -141,15 +141,13 @@ html, body {
 }
 
 #options-menu img {
+	cursor: default;
 	position: absolute;
 	width: 2vw;
 	height: 2vw;
-	-webkit-transition: opacity 0.4s ease-in-out;
-	-moz-transition: opacity 0.4s ease-in-out;
-	-o-transition: opacity 0.4s ease-in-out;
-	transition: opacity 0.4s ease-in-out;
 }
 
-#help:hover {
-	opacity: 0;
+#lock-wrapper {
+	position: relative;
+	top: 2.3vw;
 }
