@@ -134,33 +134,22 @@ html, body {
     user-select: none;
 }
 
-/* Circular question mark button: */
+/* Options menu */
 
-.help-tip{
+#options-menu {
+	position: relative;
+}
+
+#options-menu img {
 	position: absolute;
-	top: 2.2vh;
-	right: 0.8vw;
-	text-align: center;
-	background-color: white;
-	border-radius: 50%;
-    border: 0.08vw solid black;
-	width: 1.7vw;
-	height: 1.7vw;
-	font-size: calc(0.8vw + 0.8vh);
-	line-height: 3.6vh;
-	cursor: default;
-    text-decoration: none;
-    /* Rollover effect: */
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+	width: 2vw;
+	height: 2vw;
+	-webkit-transition: opacity 0.4s ease-in-out;
+	-moz-transition: opacity 0.4s ease-in-out;
+	-o-transition: opacity 0.4s ease-in-out;
+	transition: opacity 0.4s ease-in-out;
 }
 
-.help-tip:before{
-	content:'?';
-	font-weight: bold;
-	color: #a7acb2;
-}
-
-.help-tip:hover{
-	background-color: #f2f2f2;
+#help:hover {
+	opacity: 0;
 }
