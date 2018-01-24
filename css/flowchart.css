@@ -134,20 +134,36 @@ html, body {
     user-select: none;
 }
 
-/* Options menu */
+/* Options menu: */
 
-#options-menu {
-	position: relative;
-}
-
-#options-menu img {
-	cursor: default;
+#options-menu .option {
 	position: absolute;
-	width: 2vw;
-	height: 2vw;
+	top: 2.2vh;
+	right: 0.8vw;
+	text-align: center;
+	border-radius: 50%;
+    border: 0.08vw solid black;
+	width: 1.85vw;
+	height: 1.85vw;
+	cursor: default;
+    /* Rollover effect: */
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	/* Image icon positioning: */
+	background-size: 1.85vw 1.85vw;
+	background-position: center;
 }
 
-#lock-wrapper {
-	position: relative;
-	top: 2.3vw;
+
+#options-menu #help {
+	background-image: url("images/help.png");
+}
+
+#options-menu #lock {
+	top: 3.7vw;
+	background-image: url("images/lock.png");
+}
+
+.option-marked {
+	background-color: #b1fca4;
 }

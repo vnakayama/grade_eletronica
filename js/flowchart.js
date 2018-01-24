@@ -1,6 +1,7 @@
 
 var openTooltips = [];          // (internal) Array of IDs of currently active tooltips
 var timer = null;               // (internal) Timer to keep track of "click and hold" or just "simple click"
+var editLock = "false";			// (internal) Variable to hold if course selection is locked due to options menu
 var pressAndHoldTime = 500;     // Period of time for the program to consider a touch/click as a "click and hold"
 
 /* Initialization function: */
@@ -8,6 +9,9 @@ var pressAndHoldTime = 500;     // Period of time for the program to consider a 
 
      // Loads data for course completion:
      checkCookies();
+
+	 // Adds functionality to buttons in the options menu:
+	 handleOptionsMenu();
 
      // Adds click event to close all tooltips:
      $("body").click(function(e) {
@@ -77,10 +81,10 @@ var pressAndHoldTime = 500;     // Period of time for the program to consider a 
             rectangle.on(mouseDown, function(e){
                 // Starts the timer:
                 timer = setTimeout(function(){ onLongTouch(i) }, pressAndHoldTime);
-            // Impedes click event from being triggered by descendants:
-            }).on('click', 'div', function(e) {
-                e.stopPropagation();
-            });
+	            // Impedes click event from being triggered by descendants:
+	            }).on('click', 'div', function(e) {
+	                e.stopPropagation();
+	            });
             // Event for when click is released:
             rectangle.on(mouseUp, function(e){
                 // If this passes, click wasn't a hold:
@@ -89,12 +93,15 @@ var pressAndHoldTime = 500;     // Period of time for the program to consider a 
                     clearTimeout(timer);
                     // Signals there was no "click and hold":
                     timer = null;
-                    // Decides to assign a tooltip or a toggle event:
-                    if (courses[i].step != undefined){
-                        courseTooltip(i);
-                    } else {
-                        courseToggle(i);
-                    }
+					// If editting is unlocked (by option in menu):
+					if (editLock != "true"){
+	                    // Decides to assign a tooltip or a toggle event:
+	                    if (courses[i].step != undefined){
+	                        courseTooltip(i);
+	                    } else {
+	                        courseToggle(i);
+	                    }
+					}
                 }
             // Impedes click event from being triggered by descendants:
             }).on('click', 'div', function(e) {
@@ -370,6 +377,43 @@ function verifySemester(index){
 }
 
 
+// Adds functionality to buttons in the options menu:
+function handleOptionsMenu(){
+
+	// Checks if device has touch or mouse:
+	var mouseDown = "touchstart";
+	if (document.ontouchstart !== null){
+		mouseDown = "mousedown";
+	}
+
+	// Lock option icon:
+	var lockButton = $("#lock");
+
+	// Colors the lock button according to cookie preset:
+	if (editLock == "true"){
+		lockButton.addClass("complete-course");
+	} else {
+		lockButton.addClass("incomplete-course");
+	}
+
+	// When clicking lock option:
+	lockButton.on(mouseDown, function(){
+		// If option is already marked:
+		if (lockButton.hasClass("incomplete-course")){
+			// Mark option:
+	        lockButton.removeClass("incomplete-course").addClass("complete-course");
+			editLock = "true";
+		} else {
+			// Unmarks option:
+			lockButton.removeClass("complete-course").addClass("incomplete-course");
+			editLock = "false";
+		}
+		// Saves the cookie:
+		setCookie("editLock", editLock);
+		console.log(getCookie("editLock"));
+	});
+}
+
 
 /* COOKIE FUNCTIONS */
 
@@ -381,6 +425,8 @@ function checkCookies() {
     if (check == "") {
         // Sets the first visit as false:
         setCookie("newcomer8", "false");
+		// Sets the edit-lock as false:
+        setCookie("editLock", "false");
         // Creates a cookie for each course:
         for (var i in courses){
             setCookie(i, "0");
@@ -391,6 +437,8 @@ function checkCookies() {
         for (var i in courses){
             courses[i].status = getCookie(i);
         }
+		editLock = getCookie("editLock");
+		console.log(editLock);
     }
 }
 
