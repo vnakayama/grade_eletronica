@@ -13,6 +13,9 @@ var pressAndHoldTime = 500;     // Period of time for the program to consider a 
 	 // Adds functionality to buttons in the options menu:
 	 handleOptionsMenu();
 
+	 // Handles mobile orientation warnings:
+	 handleMobileOrientation();
+
      // Adds click event to close all tooltips:
      $("body").click(function(e) {
 
@@ -28,6 +31,7 @@ var pressAndHoldTime = 500;     // Period of time for the program to consider a 
          closeAllTooltips(keepOpen);
 
      });
+
 
      // Creates semester columns:
      for (var i=1; i<=semesters; i++){
@@ -411,6 +415,32 @@ function handleOptionsMenu(){
 		// Saves the cookie:
 		setCookie("editLock", editLock);
 		console.log(getCookie("editLock"));
+	});
+}
+
+
+// Handles mobile orientation warnings:
+function handleMobileOrientation(){
+
+	var isMobile = false;
+
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		isMobile = true;
+	}
+
+	// Checks if orientation is portrait:
+	if ((window.innerHeight > window.innerWidth) && (isMobile)) {
+		// Displays a warning message:
+		$("#portrait-warning").show();
+	}
+
+	// Allows orientation warning to be displayed when window is resized:
+	$(window).resize(function() {
+		if ((window.innerHeight > window.innerWidth) && (isMobile)){
+			$("#portrait-warning").show();
+		} else {
+			$("#portrait-warning").hide();
+		}
 	});
 }
 

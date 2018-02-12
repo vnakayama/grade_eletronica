@@ -167,3 +167,26 @@ html, body {
 .option-marked {
 	background-color: #b1fca4;
 }
+
+/* Warning for when screen is in portrait mode: */
+
+#portrait-warning {
+	display: none;
+	position: fixed;
+	width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+	background: white url("images/rotate-phone.png") no-repeat center;
+	z-index: 1000;
+}
+
+#portrait-warning h3 {
+	font-family: Rounded;
+	font-size: calc(0.8vw + 2vh);
+	width: 100%;
+	text-align: center;
+	position: absolute;
+  	top: 60%;
+  	transform: translateY(-50%);
+}

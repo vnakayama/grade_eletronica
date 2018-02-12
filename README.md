@@ -4,7 +4,7 @@ Helpful interactive flowchart to keep track of your progress throughout the cour
 
 ## Usage
 
-Access the downloaded branch and run an HTTP server. One example using Python would be:
+Access the downloaded branch and run an HTTP server. One example using Python 2 would be:
 
 ```python -m SimpleHTTPServer 8000```
 
