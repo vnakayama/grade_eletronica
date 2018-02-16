@@ -2,6 +2,8 @@
 
 Helpful interactive flowchart to keep track of your progress throughout the courses you take in university. The example portrayed here is related to the Federal University of Rio de Janeiro's Computer Engineering undergrad.
 
+Looking for a working demo? [Here's one](https://carloseduardov8.github.io/Interactive-Flowchart/).
+
 ## Usage
 
 Access the downloaded branch and run an HTTP server. One example using Python 2 would be:
