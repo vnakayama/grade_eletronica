@@ -1,6 +1,10 @@
 /* Number of total columns/semesters: */
 window.semesters = 10;
 
+/* List of available colors to toggle a course as completed */
+/* The first color is default for selecting options as well, so make sure to choose that one wisely */
+window.colors = ["#b1fca4", "#fac6ff", "#a8c9ff"];
+
 // Order of courses matters: do not swap positions. Append at the end.
 window.courses = [
     { name: "Algoritmos e Programação", credits: 5, semester: 1},

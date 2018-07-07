@@ -1,8 +1,9 @@
 
-var openTooltips = [];          // (internal) Array of IDs of currently active tooltips
-var timer = null;               // (internal) Timer to keep track of "click and hold" or just "simple click"
-var editLock = "false";			// (internal) Variable to hold if course selection is locked due to options menu
-var pressAndHoldTime = 500;     // Period of time for the program to consider a touch/click as a "click and hold"
+var openTooltips = [];          	// (internal) Array of IDs of currently active tooltips
+var timer = null;               	// (internal) Timer to keep track of "click and hold" or just "simple click"
+var editLock = "false";				// (internal) Variable to hold if course selection is locked due to options menu
+var colorId = 0;					// (internal) Represents the index of the color being used to toggle courses as completed, as taken from the window.colors list
+var pressAndHoldTime = 500;    		// Period of time for the program to consider a touch/click as a "click and hold"
 
 /* Initialization function: */
  $(document).ready(function(){
@@ -111,7 +112,7 @@ var pressAndHoldTime = 500;     // Period of time for the program to consider a 
             }).on('click', 'div', function(e) {
                 e.stopPropagation();
             });
-            // For mouse environments, clears timer when dragging away from course box:
+            // For mouse environments, clears "click and hold" timer when dragging away from course box:
             rectangle.mouseleave( function(e){
                 // Prevents "click and hold" from happening:
                 clearTimeout(timer);
@@ -390,12 +391,18 @@ function handleOptionsMenu(){
 		mouseDown = "mousedown";
 	}
 
-	// Lock option icon:
+
+	////////////////////////
+	/// LOCK OPTION ICON ///
+	////////////////////////
+
+
+	// Retrieves option icon:
 	var lockButton = $("#lock");
 
 	// Colors the lock button according to cookie preset:
 	if (editLock == "true"){
-		lockButton.addClass("complete-course");
+		lockButton.css("background-color", window.colors[0]);
 	} else {
 		lockButton.addClass("incomplete-course");
 	}
@@ -414,8 +421,37 @@ function handleOptionsMenu(){
 		}
 		// Saves the cookie:
 		setCookie("editLock", editLock);
-		console.log(getCookie("editLock"));
 	});
+
+
+	//////////////////////////
+	/// BUCKET OPTION ICON ///
+	//////////////////////////
+
+
+	// Bucket option icon:
+	var bucketButton = $("#bucket");
+
+	// Colors the bucket button according to cookie preset:
+	bucketButton.css("background-color", window.colors[colorId]);
+
+	// When clicking bucket option:
+	bucketButton.on(mouseDown, function(){
+		// Jumps to the next color in the colors list:
+		colorId++;
+		// If current id is beyond the last element of the colors list:
+		if (colorId == window.colors.length){
+			// Brings the color id back to the first element:
+			colorId = 0;
+		}
+
+		// Colors the bucket button:
+		bucketButton.css("background-color", window.colors[colorId]);
+
+		// Saves the cookie:
+		setCookie("colorId", colorId.toString());
+	});
+
 }
 
 
@@ -445,18 +481,22 @@ function handleMobileOrientation(){
 }
 
 
-/* COOKIE FUNCTIONS */
+////////////////////////
+/// COOKIE FUNCTIONS ///
+////////////////////////
 
 
 // Checks if cookies already exist:
 function checkCookies() {
-    var check = getCookie("newcomer8");
+    var check = getCookie("newcomer9");
     // If cookie doesn't exist:
     if (check == "") {
         // Sets the first visit as false:
-        setCookie("newcomer8", "false");
+        setCookie("newcomer9", "false");
 		// Sets the edit-lock as false:
         setCookie("editLock", "false");
+		// Sets the current editing color:
+        setCookie("colorId", "0");
         // Creates a cookie for each course:
         for (var i in courses){
             setCookie(i, "0");
@@ -468,7 +508,7 @@ function checkCookies() {
             courses[i].status = getCookie(i);
         }
 		editLock = getCookie("editLock");
-		console.log(editLock);
+		colorId = Number(getCookie("colorId"));
     }
 }
 
