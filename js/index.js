@@ -71,7 +71,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
         // Creates a button representing a course:
         var rectangle = $("<button/>",
             {
-                "class": "box course-box unselectable",
+                "class": "box course-box transition unselectable",
                 "id": "course"+i,
             });
 
@@ -112,6 +112,44 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
             }).on('click', 'div', function(e) {
                 e.stopPropagation();
             });
+			// Mouse hover in and hover out function:
+			rectangle.hover(
+				// handlerIn function, for when the mouse enters the object.
+				function(){
+					// Only runs if not in a touch device:
+					if (document.ontouchstart !== null){
+						// Checks if course is incomplete:
+						if (courses[i].status == -1){
+							// Make background red:
+							$(this).css("background-color", "#ffeded");
+							$(this).css("border-color", "#870404");
+						// Case where course is complete with a given color:
+						} else {
+							// Retrieves course color:
+							var courseColor = window.colors[courses[i].status];
+							// Make hover color a darker variation of original color:
+							var hoverColor = LightenDarkenColor(window.colors[courses[i].status], -15);
+							$(this).css("background-color", hoverColor);
+						// Case where course is complete with a given color:
+						}
+					}
+				},
+				// handlerOut function, for when the mouse leaves the object.
+				function(){
+					// Only runs if not in a touch device:
+					if (document.ontouchstart !== null){
+						// Checks if course is incomplete:
+						if (courses[i].status == -1){
+							// Make background red:
+							$(this).css("background-color", "white");
+							$(this).css("border-color", "black");
+						// Case where course is complete with a given color:
+						} else {
+							$(this).css("background-color", window.colors[courses[i].status]);
+						}
+					}
+				}
+			);
             // For mouse environments, clears "click and hold" timer when dragging away from course box:
             rectangle.mouseleave( function(e){
                 // Prevents "click and hold" from happening:
@@ -121,13 +159,13 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
             });
         }(i));
 
-        // Updates button according to course completion:
-        if (parseInt(courses[i].status) == courses[i].credits) {
-            rectangle.addClass("complete-course");
+
+        // Updates button according to course color (-1 is incomplete):
+        if (courses[i].status != -1) {
+            rectangle.css("background-color", window.colors[courses[i].status]);
         } else {
-            rectangle.addClass("incomplete-course");
-            // Checks if background should be colored partially:
-        }
+			rectangle.css("background-color", "white");
+		}
 
         // Creates a span element to hold the name of the course:
         var name = $("<span/>",
@@ -202,12 +240,12 @@ function courseToggle(index){
     var status = "";
 
     // Toggles the button completion:
-    if (course.hasClass("incomplete-course")){
-        course.removeClass("incomplete-course").addClass("complete-course");
-        status = courses[index].credits.toString();
+    if (courses[index].status == colorId){
+		course.css("background-color", "white");
+        status = -1;
     } else {
-        course.removeClass("complete-course").addClass("incomplete-course");
-        status = "0";
+		course.css("background-color", window.colors[colorId]);
+        status = colorId;
     }
 
     // Saves the cookie:
@@ -247,7 +285,7 @@ function courseTooltip(index){
         // Initializes the slider (slider[0] is just jquery obj to vanilla JS obj):
         noUiSlider.create(slider[0], {
             // Initital value:
-    		start: parseInt(courses[index].status),
+    		start: courses[index].status,
             // Background:
     		connect: [true, false],
             // Allows for immediate movement of slide:
@@ -264,7 +302,7 @@ function courseTooltip(index){
                     }
                 },
             // Slider step:
-            step: parseInt(courses[index].step),
+            step: courses[index].step,
             // Min and max values:
     		range: {
     			'min': 0,
@@ -316,7 +354,7 @@ function closeAllTooltips(keepOpen){
     // Runs through the list of open tooltips:
     for (var i in openTooltips){
 
-        // Ignores the course of index "exclusion":
+        // Ignores the course of index "keepOpen":
         if (openTooltips[i] != keepOpen.toString()){
 
             // Finds the open tooltip (and possible copies of it):
@@ -337,7 +375,7 @@ function closeAllTooltips(keepOpen){
 // Adds a fraction of a completed background to a course if it is not completed:
 function scaleBackground(index){
     // Adds completion color to course element:
-    var scale = parseInt(courses[index].status) / courses[index].credits;
+    var scale = courses[index].status / courses[index].credits;
     if (scale != 1){
         $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
     }
@@ -358,7 +396,7 @@ function verifySemester(index){
         if (courses[i].semester == index){
             belonging += 1;
             // Checks if course is completed:
-            if (parseInt(courses[i].status) == courses[i].credits){
+            if (courses[i].status != -1){
                 completed += 1;
             }
         }
@@ -480,6 +518,41 @@ function handleMobileOrientation(){
 	});
 }
 
+//////////////////////////////////
+/// HANDLE HEX COLOR DARKENING ///
+//////////////////////////////////
+
+// Changes col to be either darker (ex.:amt=-20) or lighter (ex.:amt=20):
+function LightenDarkenColor(col, amt) {
+
+    var usePound = false;
+
+    if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+    }
+
+    var num = parseInt(col,16);
+
+    var r = (num >> 16) + amt;
+
+    if (r > 255) r = 255;
+    else if  (r < 0) r = 0;
+
+    var b = ((num >> 8) & 0x00FF) + amt;
+
+    if (b > 255) b = 255;
+    else if  (b < 0) b = 0;
+
+    var g = (num & 0x0000FF) + amt;
+
+    if (g > 255) g = 255;
+    else if (g < 0) g = 0;
+
+    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+
+}
+
 
 ////////////////////////
 /// COOKIE FUNCTIONS ///
@@ -488,24 +561,24 @@ function handleMobileOrientation(){
 
 // Checks if cookies already exist:
 function checkCookies() {
-    var check = getCookie("newcomer9");
+    var check = getCookie("newcomer11");
     // If cookie doesn't exist:
     if (check == "") {
         // Sets the first visit as false:
-        setCookie("newcomer9", "false");
+        setCookie("newcomer11", "false");
 		// Sets the edit-lock as false:
         setCookie("editLock", "false");
 		// Sets the current editing color:
         setCookie("colorId", "0");
         // Creates a cookie for each course:
         for (var i in courses){
-            setCookie(i, "0");
-            courses[i].status = "0";
+            setCookie(i, "-1");
+            courses[i].status = -1;
         }
     } else {
         // Retrieves each cookie:
         for (var i in courses){
-            courses[i].status = getCookie(i);
+            courses[i].status = Number(getCookie(i));
         }
 		editLock = getCookie("editLock");
 		colorId = Number(getCookie("colorId"));

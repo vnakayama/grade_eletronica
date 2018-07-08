@@ -31,7 +31,9 @@ html, body {
 
 
 .course-box {
-
+	color: black;
+    /* Border of rectangle: */
+    border: 0.09vw solid black;
 }
 
 .semester-box {
