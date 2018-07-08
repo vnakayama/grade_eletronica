@@ -118,19 +118,18 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 				function(){
 					// Only runs if not in a touch device:
 					if (document.ontouchstart !== null){
-						// Checks if course is incomplete:
-						if (courses[i].status == -1){
+						// Checks if course is complete:
+						if (isComplete(i)){
+							// Retrieves course color:
+							var courseColor = window.colors[courses[i].color];
+							// Make hover color a darker variation of original color:
+							var hoverColor = LightenDarkenColor(window.colors[courses[i].color], -15);
+							$(this).css("background-color", hoverColor);
+						// Case where course is complete with a given color:
+						} else {
 							// Make background red:
 							$(this).css("background-color", "#ffeded");
 							$(this).css("border-color", "#870404");
-						// Case where course is complete with a given color:
-						} else {
-							// Retrieves course color:
-							var courseColor = window.colors[courses[i].status];
-							// Make hover color a darker variation of original color:
-							var hoverColor = LightenDarkenColor(window.colors[courses[i].status], -15);
-							$(this).css("background-color", hoverColor);
-						// Case where course is complete with a given color:
 						}
 					}
 				},
@@ -138,14 +137,15 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 				function(){
 					// Only runs if not in a touch device:
 					if (document.ontouchstart !== null){
-						// Checks if course is incomplete:
-						if (courses[i].status == -1){
-							// Make background red:
-							$(this).css("background-color", "white");
-							$(this).css("border-color", "black");
+						// Checks if course is complete:
+						if (isComplete(i)){
+							// Restores original color:
+							$(this).css("background-color", window.colors[courses[i].color]);
 						// Case where course is complete with a given color:
 						} else {
-							$(this).css("background-color", window.colors[courses[i].status]);
+							// Make background white:
+							$(this).css("background-color", "white");
+							$(this).css("border-color", "black");
 						}
 					}
 				}
@@ -160,9 +160,10 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
         }(i));
 
 
-        // Updates button according to course color (-1 is incomplete):
-        if (courses[i].status != -1) {
-            rectangle.css("background-color", window.colors[courses[i].status]);
+        // Updates button according to course color (-1 is incomplete).
+		// Checks if course has been completed:
+        if (isComplete(i)){
+            rectangle.css("background-color", window.colors[courses[i].color]);
         } else {
 			rectangle.css("background-color", "white");
 		}
@@ -232,16 +233,20 @@ function onLongTouch(index) {
     }
 }
 
+
+function isComplete(index){
+	return ((courses[index].color != -1) && (courses[index].step == undefined)) || (courses[index].partial == courses[index].credits);
+}
+
 // Function to toggle complete/incomplete when clicking on a course:
 function courseToggle(index){
-
     // Finds the corresponding course button:
     var course = $("#course"+index);
     var status = "";
 
     // Toggles the button completion.
 	// Case where course is already complete:
-    if (courses[index].status == colorId){
+    if (courses[index].color == colorId){
 		// Make course incomplete:
 		course.css("background-color", "white");
         status = -1;
@@ -254,8 +259,8 @@ function courseToggle(index){
     }
 
     // Saves the cookie:
-    setCookie(index, status);
-    courses[index].status = status;
+    setCookie(index+"color", status);
+    courses[index].color = status;
 
     // Checks if semester status was changed:
     verifySemester(courses[index].semester);
@@ -290,7 +295,7 @@ function courseTooltip(index){
         // Initializes the slider (slider[0] is just jquery obj to vanilla JS obj):
         noUiSlider.create(slider[0], {
             // Initital value:
-    		start: courses[index].status,
+    		start: courses[index].partial,
             // Background:
     		connect: [true, false],
             // Allows for immediate movement of slide:
@@ -318,23 +323,34 @@ function courseTooltip(index){
         // Listens for a change of value on the slider:
         slider[0].noUiSlider.on("update", function(){
 
+			// Contamines course with current color:
+			setCookie(index+"color", colorId);
+			courses[index].color = colorId;
+
             // Reads the changed value:
             var status = slider[0].noUiSlider.get().toString();
             // Prevents initialization issues:
             if (status == "NaN") status = "0";
             // Saves the cookie:
-            setCookie(index, status);
-            courses[index].status = status;
+            setCookie(index+"partial", status);
+            courses[index].partial = status;
 
             // Adds completion color to course element:
             var scale = scaleBackground(index);
 
             // Checks if course status was changed:
-            if ((scale == 1) && (course.hasClass("incomplete-course"))) {
+            if (scale == 1) {
+				// Makes course look as completed:
                 course.css("background-image", "");
-                courseToggle(index);
-            } else if ((scale != 1) && (course.hasClass("complete-course"))){
-                courseToggle(index);
+				course.css("background-color", window.colors[courses[index].color]);
+				course.css("border-color", "black");
+				// Checks if semester status changed:
+				verifySemester(courses[index].semester);
+            } else if (scale != 1){
+				// Makes course behave as incomplete:
+				course.css("background-color", "white");
+				// Checks if semester status changed:
+				verifySemester(courses[index].semester);
             }
 
         });
@@ -380,9 +396,10 @@ function closeAllTooltips(keepOpen){
 // Adds a fraction of a completed background to a course if it is not completed:
 function scaleBackground(index){
     // Adds completion color to course element:
-    var scale = courses[index].status / courses[index].credits;
+    var scale = courses[index].partial / courses[index].credits;
     if (scale != 1){
-        $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, #b1fca4, #b1fca4 " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
+		var colorToScale = window.colors[courses[index].color];
+        $("#course"+index).css("background-image", "-webkit-linear-gradient(bottom, " + colorToScale + ", " + colorToScale + " " + scale*100 + "%, transparent " + scale*100 + "%, transparent 100%)");
     }
     // Returns the calculated value:
     return scale;
@@ -401,7 +418,7 @@ function verifySemester(index){
         if (courses[i].semester == index){
             belonging += 1;
             // Checks if course is completed:
-            if (courses[i].status != -1){
+            if (isComplete(i)){
                 completed += 1;
             }
         }
@@ -566,25 +583,36 @@ function LightenDarkenColor(col, amt) {
 
 // Checks if cookies already exist:
 function checkCookies() {
-    var check = getCookie("newcomer11");
+    var check = getCookie("newcomer12");
     // If cookie doesn't exist:
     if (check == "") {
         // Sets the first visit as false:
-        setCookie("newcomer11", "false");
+        setCookie("newcomer12", "false");
 		// Sets the edit-lock as false:
         setCookie("editLock", "false");
 		// Sets the current editing color:
         setCookie("colorId", "0");
         // Creates a cookie for each course:
         for (var i in courses){
-            setCookie(i, "-1");
-            courses[i].status = -1;
+            setCookie(i+"color", "-1");
+            courses[i].color = -1;
+			// Checks if course is a multi-credit block:
+			if (courses[i].step !== undefined){
+				setCookie(i+"partial", "0");
+				courses[i].partial = 0;
+			}
         }
     } else {
         // Retrieves each cookie:
         for (var i in courses){
-            courses[i].status = Number(getCookie(i));
+            courses[i].color = Number(getCookie(i+"color"));
+			// Checks if course is a multi-credit block:
+			if (courses[i].step !== undefined){
+				// Retrieves how much of the block has been completed:
+				courses[i].partial = Number(getCookie(i+"partial"));
+			}
         }
+		// Retrieves options menu cookies:
 		editLock = getCookie("editLock");
 		colorId = Number(getCookie("colorId"));
     }
