@@ -239,12 +239,17 @@ function courseToggle(index){
     var course = $("#course"+index);
     var status = "";
 
-    // Toggles the button completion:
+    // Toggles the button completion.
+	// Case where course is already complete:
     if (courses[index].status == colorId){
+		// Make course incomplete:
 		course.css("background-color", "white");
         status = -1;
+	// Case where course is incomplete:
     } else {
+		// Completes course:
 		course.css("background-color", window.colors[colorId]);
+		course.css("border-color", "black");
         status = colorId;
     }
 
