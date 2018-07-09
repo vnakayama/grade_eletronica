@@ -181,6 +181,11 @@ html, body {
 	background-image: url("images/bucket.png");
 }
 
+#options-menu #switch {
+	top: 9.1vw;
+	background-image: url("images/switch.png");
+}
+
 .option-marked {
 	background-color: #b1fca4;
 }

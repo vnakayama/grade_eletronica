@@ -3,6 +3,7 @@ var openTooltips = [];          	// (internal) Array of IDs of currently active 
 var timer = null;               	// (internal) Timer to keep track of "click and hold" or just "simple click"
 var editLock = "false";				// (internal) Variable to hold if course selection is locked due to options menu
 var colorId = 0;					// (internal) Represents the index of the color being used to toggle courses as completed, as taken from the window.colors list
+var creditsOrCode = "credits"		// (internal) Holds whether credits or code are being displayed for courses at a given time
 var pressAndHoldTime = 500;    		// Period of time for the program to consider a touch/click as a "click and hold"
 
 /* Initialization function: */
@@ -183,22 +184,14 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
                 "id": "course-credits"+i
             });
 
-        // Checks what kind of credits the metric means:
-        var text = "";
-        if (courses[i].credits == 1){
-            text = " crédito)";
-        } else if (courses[i].credits < 30){
-            text = " créditos)";
-        } else {
-            text = " horas)";
-        }
-        credits.html("(" + courses[i].credits + text);
-
         // Inserts course info into the corresponding semester DOM:
         var parent = $("#column" + courses[i].semester);
         rectangle.append(name);
         rectangle.append(credits);
         parent.append(rectangle);
+
+		// Fills in course credits:
+		setCreditsText(i);
 
         // Checks if background should be partially colored:
         if (courses[i].step != undefined) {
@@ -213,6 +206,33 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
     }
 
 });
+
+
+// Sets the credit text for course i:
+function setCreditsText(i){
+	// Checks what kind of credits the metric means:
+	var text = "";
+	if (courses[i].credits == 1){
+		text = " crédito)";
+	} else if (courses[i].credits < 30){
+		text = " créditos)";
+	} else {
+		text = " horas)";
+	}
+	$("#course-credits"+i).html("(" + courses[i].credits + text);
+}
+
+
+// Sets the code text for course i:
+function setCodeText(i){
+	// Checks if code is available for course i:
+	if (courses[i].code !== undefined){
+		$("#course-credits"+i).html("(" + courses[i].code + ")");
+	} else {
+		// Displays the number of credits if code is unavailable:
+		setCreditsText(i);
+	}
+}
 
 
 // Function to display a course's requirements when holding its box:
@@ -510,6 +530,34 @@ function handleOptionsMenu(){
 
 		// Saves the cookie:
 		setCookie("colorId", colorId.toString());
+	});
+
+
+	//////////////////////////
+	/// SWITCH OPTION ICON ///
+	//////////////////////////
+
+	// Switch option icon:
+	var switchButton = $("#switch");
+
+	// When clicking switch option:
+	switchButton.on(mouseDown, function(){
+		// Switches state:
+		if (creditsOrCode === "credits"){
+			// Runs through every course:
+			for (var i in courses){
+				setCodeText(i);
+			}
+			// Saves state:
+			creditsOrCode = "code";
+		} else {
+			// Runs through every course:
+			for (var i in courses){
+				setCreditsText(i);
+			}
+			// Saves state:
+			creditsOrCode = "credits";
+		}
 	});
 
 }
