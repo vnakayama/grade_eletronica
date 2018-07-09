@@ -19,9 +19,6 @@ html, body {
     display: block;
     width: 9vw;
     height: 9.2vh;
-    /* Rollover effect: */
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
 }
 
 /* Removes blue outline when clicked: */

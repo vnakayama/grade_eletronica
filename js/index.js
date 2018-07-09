@@ -208,8 +208,12 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 });
 
 
-// Sets the credit text for course i:
-function setCreditsText(i){
+// Sets the credit text for course i. Will make it fade if *fade* is true:
+function setCreditsText(i, fade){
+
+	// Retrieves text object:
+	var credits = $("#course-credits"+i);
+
 	// Checks what kind of credits the metric means:
 	var text = "";
 	if (courses[i].credits == 1){
@@ -219,15 +223,39 @@ function setCreditsText(i){
 	} else {
 		text = " horas)";
 	}
-	$("#course-credits"+i).html("(" + courses[i].credits + text);
+	// Finishes formatting text:
+	text = "(" + courses[i].credits + text;
+
+	// Checks if fading has been set:
+	if ((fade == true) && (credits.html() !== text)){
+		credits.clearQueue().fadeTo(0, 0);
+		credits.html(text);
+		credits.fadeTo(400, 1);
+	} else {
+		credits.html(text);
+	}
 }
 
 
-// Sets the code text for course i:
-function setCodeText(i){
+// Sets the code text for course i. Will make it fade if *fade* is true:
+function setCodeText(i, fade){
+
+	// Retrieves text object:
+	var code = $("#course-credits"+i);
+
+	// Formats code text:
+	var text = "(" + courses[i].code + ")";
+
 	// Checks if code is available for course i:
 	if (courses[i].code !== undefined){
-		$("#course-credits"+i).html("(" + courses[i].code + ")");
+		// Checks if fading is enabled and if text isn't already the same:
+		if ((fade == true) && (code.html() !== text)){
+			code.clearQueue().fadeTo(0, 0);
+			code.html(text);
+			code.fadeTo(400, 1);
+		} else {
+			code.html(text);
+		}
 	} else {
 		// Displays the number of credits if code is unavailable:
 		setCreditsText(i);
@@ -546,14 +574,14 @@ function handleOptionsMenu(){
 		if (creditsOrCode === "credits"){
 			// Runs through every course:
 			for (var i in courses){
-				setCodeText(i);
+				setCodeText(i, true);
 			}
 			// Saves state:
 			creditsOrCode = "code";
 		} else {
 			// Runs through every course:
 			for (var i in courses){
-				setCreditsText(i);
+				setCreditsText(i, true);
 			}
 			// Saves state:
 			creditsOrCode = "credits";
