@@ -1,20 +1,24 @@
 # Interactive Flowchart
 
-Helpful interactive flowchart to keep track of your progress throughout the courses you take in university. The example portrayed here is related to the Federal University of Rio de Janeiro's Computer Engineering undergrad.
+Use it live at: https://gremio-eci.github.io/Interactive-Flowchart/
 
-Looking for a working demo? [Here's one](https://carloseduardov8.github.io/Interactive-Flowchart/).
+Interactive flowchart to keep track of your progress throughout the courses you take in university.
+
+The example portrayed here is related to the Federal University of Rio de Janeiro's Computer Engineering undergrad.
 
 ## Usage
 
 Access the downloaded branch and run an HTTP server. One example using Python 2 would be:
 
-```python -m SimpleHTTPServer 8000```
+`python3 -m http.server`
 
-Now simply access the flowchart.html file through localhost:8000/flowchart.html
+Now simply access localhost:8000/
 
-The project is very compatible with mobile devices, just go to X.X.X.X:8000 (address of your server) to try it out.
+The project is responbile, so feel free to use it on mobile.
 
 ## Customization
+
+*There currently is a fork to support UFRJ's Pharmacy course*
 
 The js/database.js file contains a list of courses you need to take to graduate. Simply altering that list will allow you to fully customize the flowchart without losing any functionality.
 
