@@ -372,7 +372,7 @@ function courseTooltip(index){
             // Min and max values:
     		range: {
     			'min': 0,
-    			'max': courses[index].credits
+    			'max': courses[courseId][index].credits
     		}
     	});
 
