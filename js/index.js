@@ -68,7 +68,7 @@ var courseId = 1; //ID of the choosen course
      }
 
     // Creates course buttons:
-    for (var i in courses){
+    for (var i in courses[courseId]){
 
         // Creates a button representing a course:
         var rectangle = $("<button/>",
