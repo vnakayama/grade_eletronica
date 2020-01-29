@@ -124,9 +124,6 @@ var courseId = 1; //ID of the choosen course
 						if (isComplete(i)){
 							// Retrieves course color:
 							var courseColor = window.colors[courses[1][i].color];
-							// Make hover color a darker variation of original color:
-							var hoverColor = LightenDarkenColor(window.colors[courses[1][i].color], -15);
-							$(this).css("background-color", hoverColor);
 						// Case where course is complete with a given color:
 						} else {
 							// Make background red:
