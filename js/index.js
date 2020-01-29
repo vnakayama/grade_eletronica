@@ -5,6 +5,7 @@ var editLock = "false";				// (internal) Variable to hold if course selection is
 var colorId = 0;					// (internal) Represents the index of the color being used to toggle courses as completed, as taken from the window.colors list
 var creditsOrCode = "credits"		// (internal) Holds whether credits or code are being displayed for courses at a given time
 var pressAndHoldTime = 500;    		// Period of time for the program to consider a touch/click as a "click and hold"
+var courseId = 1; //ID of the choosen course
 
 /* Initialization function: */
  $(document).ready(function(){
@@ -102,7 +103,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 					// If editting is unlocked (by option in menu):
 					if (editLock != "true"){
 	                    // Decides to assign a tooltip or a toggle event:
-	                    if (courses[i].step != undefined){
+	                    if (courses[1][i].step != undefined){
 	                        courseTooltip(i);
 	                    } else {
 	                        courseToggle(i);
@@ -122,9 +123,9 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 						// Checks if course is complete:
 						if (isComplete(i)){
 							// Retrieves course color:
-							var courseColor = window.colors[courses[i].color];
+							var courseColor = window.colors[courses[1][i].color];
 							// Make hover color a darker variation of original color:
-							var hoverColor = LightenDarkenColor(window.colors[courses[i].color], -15);
+							var hoverColor = LightenDarkenColor(window.colors[courses[1][i].color], -15);
 							$(this).css("background-color", hoverColor);
 						// Case where course is complete with a given color:
 						} else {
@@ -141,7 +142,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 						// Checks if course is complete:
 						if (isComplete(i)){
 							// Restores original color:
-							$(this).css("background-color", window.colors[courses[i].color]);
+							$(this).css("background-color", window.colors[courses[1][i].color]);
 						// Case where course is complete with a given color:
 						} else {
 							// Make background white:
@@ -164,7 +165,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
         // Updates button according to course color (-1 is incomplete).
 		// Checks if course has been completed:
         if (isComplete(i)){
-            rectangle.css("background-color", window.colors[courses[i].color]);
+            rectangle.css("background-color", window.colors[courses[1][i].color]);
         } else {
 			rectangle.css("background-color", "white");
 		}
@@ -175,7 +176,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
                 "class": "course-name",
                 "id": "course-name"+i
             });
-        name.html(courses[i].name);
+        name.html(courses[1][i].name);
 
         // Creates a span element to hold the number of credits:
         var credits = $("<span/>",
@@ -185,7 +186,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
             });
 
         // Inserts course info into the corresponding semester DOM:
-        var parent = $("#column" + courses[i].semester);
+        var parent = $("#column" + courses[1][i].semester);
         rectangle.append(name);
         rectangle.append(credits);
         parent.append(rectangle);
@@ -194,7 +195,7 @@ var pressAndHoldTime = 500;    		// Period of time for the program to consider a
 		setCreditsText(i);
 
         // Checks if background should be partially colored:
-        if (courses[i].step != undefined) {
+        if (courses[1][i].step != undefined) {
             scaleBackground(i);
         }
 
@@ -216,15 +217,15 @@ function setCreditsText(i, fade){
 
 	// Checks what kind of credits the metric means:
 	var text = "";
-	if (courses[i].credits == 1){
+	if (courses[1][i].credits == 1){
 		text = " crédito)";
-	} else if (courses[i].credits < 30){
+	} else if (courses[1][i].credits < 30){
 		text = " créditos)";
 	} else {
 		text = " horas)";
 	}
 	// Finishes formatting text:
-	text = "(" + courses[i].credits + text;
+	text = "(" + courses[1][i].credits + text;
 
 	// Checks if fading has been set:
 	if ((fade == true) && (credits.html() !== text)){
@@ -244,10 +245,10 @@ function setCodeText(i, fade){
 	var code = $("#course-credits"+i);
 
 	// Formats code text:
-	var text = "(" + courses[i].code + ")";
+	var text = "(" + courses[1][i].code + ")";
 
 	// Checks if code is available for course i:
-	if (courses[i].code !== undefined){
+	if (courses[1][i].code !== undefined){
 		// Checks if fading is enabled and if text isn't already the same:
 		if ((fade == true) && (code.html() !== text)){
 			code.clearQueue().fadeTo(0, 0);
@@ -269,6 +270,7 @@ function onLongTouch(index) {
     timer = null;
     // Retrieves requirements for course "index":
     var requirements = courses[index].requirements;
+    var corequirements = courses[index].corequirements;
     // Light them up if requirements exist:
     if (requirements != undefined){
         for (var i in requirements){
@@ -276,6 +278,15 @@ function onLongTouch(index) {
             // Sets a timer for the glow to end after a few seconds:
             (function(i) {
                 setTimeout(function(){ $("#course"+requirements[i]).removeClass("course-glow"); }, 4600);
+            }(i));
+        }
+    }
+    if (corequirements != undefined){
+        for (var i in corequirements){
+            $("#course"+corequirements[i]).addClass("reqcourse-glow");
+            // Sets a timer for the glow to end after a few seconds:
+            (function(i) {
+                setTimeout(function(){ $("#course"+corequirements[i]).removeClass("reqcourse-glow"); }, 4600);
             }(i));
         }
     }
@@ -463,7 +474,7 @@ function verifySemester(index){
     // Retrieves courses from semester "index":
     for (var i in courses){
         // Checks if course belongs to requested semester:
-        if (courses[i].semester == index){
+        if (courses[1][i].semester == index){
             belonging += 1;
             // Checks if course is completed:
             if (isComplete(i)){
@@ -671,21 +682,21 @@ function checkCookies() {
         // Creates a cookie for each course:
         for (var i in courses){
             setCookie(i+"color", "-1");
-            courses[i].color = -1;
+            courses[1][i].color = -1;
 			// Checks if course is a multi-credit block:
-			if (courses[i].step !== undefined){
+			if (courses[1][i].step !== undefined){
 				setCookie(i+"partial", "0");
-				courses[i].partial = 0;
+				courses[1][i].partial = 0;
 			}
         }
     } else {
         // Retrieves each cookie:
         for (var i in courses){
-            courses[i].color = Number(getCookie(i+"color"));
+            courses[1][i].color = Number(getCookie(i+"color"));
 			// Checks if course is a multi-credit block:
-			if (courses[i].step !== undefined){
+			if (courses[1][i].step !== undefined){
 				// Retrieves how much of the block has been completed:
-				courses[i].partial = Number(getCookie(i+"partial"));
+				courses[1][i].partial = Number(getCookie(i+"partial"));
 			}
         }
 		// Retrieves options menu cookies:
