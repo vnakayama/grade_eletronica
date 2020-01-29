@@ -1,6 +1,6 @@
-# Interactive Flowchart
+# Courses Flowchart
 
-Use it live at: https://gremio-eci.github.io/Interactive-Flowchart/
+Use it live at: https://gremio-eci.github.io/Fluxograma-da-Grade
 
 Interactive flowchart to keep track of your progress throughout the courses you take in university.
 
