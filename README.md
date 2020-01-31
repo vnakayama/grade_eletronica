@@ -14,7 +14,7 @@ Access the downloaded branch and run an HTTP server. One example using Python 3 
 
 Now simply access localhost:8000/
 
-The project is responbile, so feel free to use it on mobile.
+The project is mobile friendly.
 
 ## Customization
 
