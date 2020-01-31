@@ -136,6 +136,6 @@ window.courses = [
     { name: "Atividades Acad. Optativas", credits: 8, semester: 10, step: 1, category: 2, workload: 120},
     { name: "Atividades Acad. Livre Escolha", credits: 8, semester: 10, step: 1, category: 3, workload: 120},
     { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15, category: 5, workload: 405},
-    { name: "Química EE", credits: 4, semester: 4, category: 1, workload: 60},
+    { name: "Química EE", credits: 4, semester: 4, code: "IQG111", category: 1, workload: 60},
     ]
 ]
