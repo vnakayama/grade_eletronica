@@ -8,7 +8,7 @@ The example portrayed here is related to the Federal University of Rio de Janeir
 
 ## Usage
 
-Access the downloaded branch and run an HTTP server. One example using Python 2 would be:
+Access the downloaded branch and run an HTTP server. One example using Python 3 would be:
 
 `python3 -m http.server`
 
