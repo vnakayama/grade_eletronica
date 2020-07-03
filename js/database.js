@@ -183,7 +183,7 @@ window.courses = [
         { name: "Prática Observacional em Astronomia", credits: 4, code: "OVL473", semester: 7, requirements: [20,23], category: 1}, // 33
         { name: "Atividades Acad. Optativas", credits: 4, semester: 7, category: 1}, // 34
         // Eigth term
-        { name: "Projeto Final de Curso", semester: 8, category: 1, workload: 60}, // 35
+        { name: "Projeto Final de Curso", code:'OVLX01', semester: 8, category: 1, workload: 60}, // 35
         { name: "Atividades Acad. Livre. Esc.", credits: 4, semester: 8, category: 1}, // 36
         { name: "Atividades Acad. Optativas", credits: 4, semester: 8, category: 1}, // 37
     ]
