@@ -1,10 +1,12 @@
 # Courses Flowchart
 
-Use it live at: https://gremio-eci.github.io/grade
+Use it live at: https://vnakayama.github.io/grade/
+
+*Based on the Computer Engineering undergrad original flowchart: https://gremio-eci.github.io/grade/*
 
 Interactive flowchart to keep track of your progress throughout the courses you take in university.
 
-The example portrayed here is related to the Federal University of Rio de Janeiro's Computer Engineering undergrad.
+The example portrayed here is related to the Federal University of Rio de Janeiro's undergrad courses.
 
 ## Usage
 
