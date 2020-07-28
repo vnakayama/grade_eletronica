@@ -5,7 +5,7 @@ var editLock = "false";				// (internal) Variable to hold if course selection is
 var colorId = 0;					// (internal) Represents the index of the color being used to toggle courses as completed, as taken from the window.colors list
 var creditsOrCode = "credits"		// (internal) Holds whether credits or code are being displayed for courses at a given time
 var pressAndHoldTime = 500;    		// Period of time for the program to consider a touch/click as a "click and hold"
-var courseId = 2; //ID of the choosen course
+var courseId = 1; //ID of the choosen course
 
 /* Initialization function: */
  $(document).ready(function(){

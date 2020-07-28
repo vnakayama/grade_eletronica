@@ -64,69 +64,22 @@ window.courses = [
         { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15, category: 5, workload: 405},
         { name: "Química EE", credits: 4, semester: 4, code: "IQG111", category: 1, workload: 60},
     ],
-    [ // Astronomy: Astrophysics
-        // First term
-        { name: "Introdução à Astronomia", credits: 2, code: "OVL111", semester: 1}, // 0
-        { name: "Computação I", credits: 4, code: "MAB121", semester: 1}, // 1
-        { name: "Cálculo I", credits: 6, code: "MAC118", semester: 1}, // 2
-        { name: "Física I", credits: 4, code: "FIT111", semester: 1}, // 3
-        { name: "Física Experimental I", credits: 1, code: "FIS111", semester: 1}, // 4
-        // Second term
-        { name: "Astronomia Esférica", credits: 5, code: "OVL121", semester: 2, category: 1}, // 5
-        { name: "Álgebra Linear II", credits: 4, code: "MAE125", semester: 2, category: 1}, // 6
-        { name: "Cálculo II", credits: 4, code: "MAC128", semester: 2, requirements: [2], category: 1}, // 7
-        { name: "Física II", credits: 4, code: "FIT122", semester: 2, requirements: [2, 3], category: 1}, // 8
-        { name: "Física Experimental II", credits: 1, code: "FIS121", semester: 2, requirements: [3, 4], category: 1}, // 9
-        // Third term
-        { name: "Laboratório de Astronomia", credits: 2, code: "OVL231", semester: 3, category: 1}, // 10
-        { name: "Métodos Computacionais da Astronomia", credits: 5, code: "OVL232", semester: 3, requirements: [1,6], category: 1}, // 11
-        { name: "Introdução à Estatística", credits: 4, code: "MAD124", semester: 3, category: 1}, // 12
-        { name: "Cálculo III", credits: 4, code: "MAC238", semester: 3, requirements: [7], category: 1}, // 13
-        { name: "Física III", credits: 4, code: "FIM230", semester: 3, requirements: [3, 7], category: 1}, // 14
-        { name: "Física Experimental III", credits: 1, code: "FIN231", semester: 3, requirements: [9], category: 1}, // 15
-        // Fourth term
-        { name: "Astrofísica Geral", credits: 5, code: "OVL241", semester: 4, requirements: [2,14], category: 1}, // 16
-        { name: "Física Moderna I", credits: 4, code: "FIN242", semester: 4, requirements: [14], category: 1}, // 17
-        { name: "Mecânica Clássica I", credits: 4, code: "FIW243", semester: 4, requirements: [8,13], category: 1}, // 18
-        { name: "Métodos da Física Teórica I", credits: 4, code: "FIW245", semester: 4, requirements: [13], category: 1}, // 19
-        { name: "Física IV", credits: 4, code: "FIM240", semester: 4, requirements: [14], category: 1}, // 20
-        { name: "Física Experimental IV", credits: 1, code: "FIN241", semester: 4, requirements: [15], category: 1}, // 21
-        // Fifth term
-        { name: "Sistemas Planetários", credits: 5, code: "OVL352", semester: 5, requirements: [5,18], category: 1}, // 22
-        { name: "Técnica Observacional Astronômica", credits: 5, code: "OLV351", semester: 5, requirements: [10,16], category: 1}, // 23
-        { name: "Mecânica Quântica I", credits: 4, code: "FIW356", semester: 5, requirements: [20,19,17], category: 1}, // 24
-        { name: "Eletromagnetismo I", credits: 4, code: "FIW244", semester: 5, requirements: [20,19], category: 1}, // 25
-        { name: "Atividades Acad. Livre. Esc.", credits: 4, semester: 5, category: 1}, // 26
-        // Sixth term
-        { name: "Evolução do Pensamento Astronômico", credits: 4, code: "OVL361", semester: 6, requirements: [16], category: 1}, // 27
-        { name: "Termodinâmica e Física Estatística", credits: 6, code: "FIW363", semester: 6, requirements: [20,13], category: 1}, // 28
-        { name: "Eletromagnetismo II", credits: 4, code: "FIW355", semester: 6, requirements: [25], category: 1}, // 29
-        { name: "Atividades Acad. Livre. Esc.", credits: 4, semester: 6, category: 1}, // 30
-        { name: "Atividades Acad. Optativas", credits: 4, semester: 6, category: 1}, // 31
-        // Seventh term
-        { name: "Estrutura e Evolução Estelar", credits: 4, code: "OVL471", semester: 7, requirements: [28,16], category: 1}, // 32
-        { name: "Prática Observacional em Astronomia", credits: 4, code: "OVL473", semester: 7, requirements: [20,23], category: 1}, // 33
-        { name: "Atividades Acad. Optativas", credits: 4, semester: 7, category: 1}, // 34
-        // Eigth term
-        { name: "Projeto Final de Curso", credits: 60,code:'OVLX01', semester: 8, category: 1, workload: 60}, // 35
-        { name: "Atividades Acad. Livre. Esc.", credits: 4, semester: 8, category: 1}, // 36
-        { name: "Atividades Acad. Optativas", credits: 4, semester: 8, category: 1}, // 37
-    ],
     [ // Eletrônica e Computação
         // Primeiro período
-        { name: "Computação I", credits: 5, semester: 1, code: "", category: 1, workload: 60},
-        { name: "Química EE", credits: 4, semester: 1, code: "", category: 1, workload: 60},
-        { name: "Cálculo I", credits: 6, semester: 1, code: "", category: 1, workload: 60},
-        { name: "Física I", credits: 4, semester: 1, code: "", category: 1, workload: 60},
-        { name: "Física Experimental I", credits: 1, semester: 1, code: "", category: 1, workload: 60},
+        { name: "Computação I", credits: 5, semester: 1, code: "EEL170", category: 1, workload: 60},
+        { name: "Química EE", credits: 4, semester: 1, code: "IQG111", category: 1, workload: 60},
+        { name: "Cálculo I", credits: 6, semester: 1, code: "MAC118", category: 1, workload: 90},
+        { name: "Física I", credits: 4, semester: 1, code: "FIT112", category: 1, workload: 60},
+        { name: "Física Experimental I", credits: 1, semester: 1, code: "FIS111", category: 1, workload: 30},
+        { name: "História da Tecnologia", credits: 2, semester: 1, code: "EEI206", category: 1, workload: 30},
         // Segundo período
-        { name: "Computação II", credits: 5, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
+        { name: "Computação II", credits: 5, semester: 2, code: "EEL270", requirements: [0], category: 1, workload: 60},
         { name: "Álgebra Linear II", credits: 4, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
-        { name: "Cálculo II", credits: 4, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
-        { name: "Física II", credits: 4, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
-        { name: "Física Experimental II", credits: 1, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
-        { name: "Circuitos Lógicos", credits: 5, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
-        { name: "Engenharia e Meio Ambiente", credits: 2, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
+        { name: "Cálculo II", credits: 4, semester: 2, code: "", requirements: [2], category: 1, workload: 60},
+        { name: "Física II", credits: 4, semester: 2, code: "", requirements: [2,3], category: 1, workload: 60},
+        { name: "Física Experimental II", credits: 1, semester: 2, code: "", requirements: [3,4], category: 1, workload: 30},
+        { name: "Circuitos Lógicos", credits: 5, semester: 2, code: "EEL280", category: 1, workload: 60},
+        { name: "Engenharia e Meio Ambiente", credits: 2, semester: 2, code: "EEH210", category: 1, workload: 30},
         // Terceiro período
         { name: "Sistemas Lineares I", credits: 5, semester: 3, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
         { name: "Métodos Mat. em Eng. Eletrônica", credits: 5, semester: 3, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
@@ -169,5 +122,6 @@ window.courses = [
         // Décimo período
         { name: "Organização das Indústrias", credits: 4, semester: 10, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
         { name: "Estágio Obrigatório", credits: 4, semester: 10, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
+        { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15, category: 5, workload: 405}
     ]
 ]
