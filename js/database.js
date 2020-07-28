@@ -118,9 +118,9 @@ window.courses = [
         { name: "Instrum.e Técnicas de Medidas", credits: 5, semester: 8, code: "EEL710", requirements: [0, 7, 16], category: 1, workload: 60},
         { name: "Projeto de Graduação", credits: 4, semester: 8, code: "EEWX00", requirements: [0, 7, 16], category: 1, workload: 60},
         // Nono período
-        { name: "Economia A", credits: 4, semester: 9, code: "EEI", requirements: [0, 7, 16], category: 1, workload: 60},
+        { name: "Economia A", credits: 4, semester: 9, code: "EEI312", requirements: [0, 7, 16], category: 1, workload: 60},
         // Décimo período
-        { name: "Organização das Indústrias", credits: 4, semester: 10, code: "EEI", requirements: [0, 7, 16], category: 1, workload: 60},
+        { name: "Organização das Indústrias", credits: 4, semester: 10, code: "EEI321", requirements: [0, 7, 16], category: 1, workload: 60},
         { name: "Estágio Obrigatório", credits: 2, semester: 10, code: "EEWU00", requirements: [0, 7, 16], category: 1, workload: 60},
         { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15, category: 5, workload: 405}
     ]
