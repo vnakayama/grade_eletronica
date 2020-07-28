@@ -267,7 +267,7 @@ function findWithAttr(array, attr, value) {
             return i;
         }
     }
-    return -1;
+    return null;
 }
 
 // Function to display a course's requirements when holding its box:
@@ -280,12 +280,16 @@ function onLongTouch(index) {
     // Light them up if requirements exist:
     if (requirements != undefined){
         for (var i in requirements){
-            new_i = findWithAttr(courses[courseId],'code',requirements[i])
-            courses[courseId][new_i].addClass("course-glow");
-            // Sets a timer for the glow to end after a few seconds:
-            (function(i) {
-                setTimeout(function(){ courses[courseId][findWithAttr(courses[courseId],'code',requirements[i])].removeClass("course-glow"); }, 4600);
-            }(i));
+            new_i = findWithAttr(courses[courseId],'code', requirements[i])
+            if (new_i !== null) {
+                console.log(courses[courseId][new_i]);
+                continue;
+                courses[courseId][new_i].addClass("course-glow");
+                // Sets a timer for the glow to end after a few seconds:
+                (function(i) {
+                    setTimeout(function(){ courses[courseId][findWithAttr(courses[courseId],'code',requirements[i])].removeClass("course-glow"); }, 4600);
+                }(i));
+            }
         }
     }
     if (corequirements != undefined){
