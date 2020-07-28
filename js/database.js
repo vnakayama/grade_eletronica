@@ -125,7 +125,7 @@ window.courses = [
         { name: "Atividades Acad. Livre Escolha", credits: 4, semester: 9, step: 1, category: 3, workload: 60},
         // Décimo período
         { name: "Organização das Indústrias", credits: 4, semester: 10, code: "EEI321", category: 1, workload: 60},
-        { name: "Estágio Obrigatório", credits: 2, semester: 10, code: "EEWU00", category: 1, workload: 60},
+        { name: "Estágio Obrigatório", credits: 2, semester: 10, code: "EEWU00", category: 1, workload: 160},
         { name: "Atividades Acad. Livre Escolha", credits: 4, semester: 10, step: 1, category: 3, workload: 60},
         { name: "Ativ. Compl. Especiais", credits: 405, semester: 10, step: 15, category: 5, workload: 405}
     ]
