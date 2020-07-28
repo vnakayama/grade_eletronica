@@ -17,8 +17,8 @@ html, body {
     font-family: Rounded;
     margin-bottom: 3.1vh;
     display: block;
-    width: 10vw;
-    height: 10.2vh;
+    width: 9.3vw;
+    height: 9.5vh;
 }
 
 /* Removes blue outline when clicked: */
@@ -40,6 +40,7 @@ html, body {
 }
 
 #panel {
+    /* width: 100%; */
     margin-top: 2vh;
     margin-left: 0.7vw;
 }
