@@ -110,7 +110,7 @@ window.courses = [
         // Sétimo período
         { name: "Comunicações II", credits: 5, semester: 7, code: "EEL740", requirements: ["EEL630","EEL640"], category: 1, workload: 60},
         { name: "Controle Linear II", credits: 5, semester: 7, code: "EEL760", requirements: ["EEL660"], category: 1, workload: 60},
-        { name: "Eletônica IV", credits: 5, semester: 7, code: "EEL615", requirements: ["EEL515"], category: 1, workload: 60},
+        { name: "Eletrônica IV", credits: 5, semester: 7, code: "EEL615", requirements: ["EEL515"], category: 1, workload: 60},
         { name: "Processamento de Sinais", credits: 5, semester: 7, code: "EEL711", requirements: ["EEL525","EEL555"], category: 1, workload: 60},
         { name: "Projeto Integrado", credits: 1, semester: 7, code: "EELX00", category: 1, workload: 60},
         { name: "Sistemas Operacionas", credits: 5, semester: 7, code: "EEL770", category: 1, workload: 60},
