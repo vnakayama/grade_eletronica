@@ -18,7 +18,7 @@ window.courses = [
         { name: "Linguagens de Programação", credits: 5, code: "EEL670", semester: 2, category: 1, workload: 90},
         { name: "Álgebra Linear II", credits: 4, code: "MAE125", semester: 2, category: 1, workload: 60},
         { name: "Sistemas Digitais", credits: 5, code: "EEL480", semester: 2, requirements: [2], category: 1, workload: 90},
-        { name: "Cálculo II", credits: 4, code: "MAC128", semester: 2, requirements: [3], category: 1, workload: 60},
+        { name: "Cálculo II", credits: 4, code: "MAC128", semester: 2, requirements: ["MAC118"], category: 1, workload: 60},
         { name: "Física II", credits: 4, code: "FIT122", semester: 2, requirements: [3, 4], category: 1, workload: 60},
         { name: "Física Experimental II", credits: 1, code: "FIS121", semester: 2, requirements: [4, 5], category: 1, workload: 30},
         { name: "Atividades Acad. Opt. Humanas", credits: 2, semester: 2, category: 4, workload: 30},
@@ -75,7 +75,7 @@ window.courses = [
         // Segundo período
         { name: "Computação II", credits: 5, semester: 2, code: "EEL270", requirements: [0], category: 1, workload: 60},
         { name: "Álgebra Linear II", credits: 4, semester: 2, code: "", requirements: [0, 7, 16], category: 1, workload: 60},
-        { name: "Cálculo II", credits: 4, semester: 2, code: "", requirements: [2], category: 1, workload: 60},
+        { name: "Cálculo II", credits: 4, semester: 2, code: "MAC238", requirements: ["MAC118"], category: 1, workload: 60},
         { name: "Física II", credits: 4, semester: 2, code: "", requirements: [2,3], category: 1, workload: 60},
         { name: "Física Experimental II", credits: 1, semester: 2, code: "", requirements: [3,4], category: 1, workload: 30},
         { name: "Circuitos Lógicos", credits: 5, semester: 2, code: "EEL280", category: 1, workload: 60},
