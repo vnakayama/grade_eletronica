@@ -216,13 +216,16 @@ function setCreditsText(i, fade){
 	var text = "";
 	if (courses[courseId][i].credits == 1){
 		text = " crédito)";
-	} else if (courses[courseId][i].credits < 30){
-		text = " créditos)";
-	} else {
-		text = " horas)";
+    text = "(" + courses[courseId][i].credits + text;
+	} else if (courses[courseId][i].credits == 0){
+  		text = " horas)";
+      text = "(" + courses[courseId][i].workload + text;
+  } else {
+  		text = " créditos)";
+      text = "(" + courses[courseId][i].credits + text;
 	}
-	// Finishes formatting text:
-	text = "(" + courses[courseId][i].credits + text;
+	// // Finishes formatting text:
+	// text = "(" + courses[courseId][i].credits + text;
 
 	// Checks if fading has been set:
 	if ((fade == true) && (credits.html() !== text)){
